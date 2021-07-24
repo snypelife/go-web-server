@@ -8,7 +8,7 @@ COPY main.go .
 
 RUN go mod download
 
-RUN go build -o go-web-server
+RUN GOOS=linux GOARCH=amd64 go build -o go-web-server
 
 # And then let's run the app from a nice little image
 FROM alpine
