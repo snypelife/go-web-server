@@ -17,6 +17,20 @@ WORKDIR /app
 
 COPY --from=builder /app .
 
+ENV USER=gouser
+ENV UID=1000
+
+RUN adduser \
+  --disabled-password \
+  --gecos "" \
+  --home "/nothing" \
+  --no-create-home \
+  --shell "/sbin/nologin" \
+  --uid "${UID}" \
+  "${USER}"
+
+USER gouser:gouser
+
 EXPOSE 3030
 
 CMD ["/app/go-web-server"]
